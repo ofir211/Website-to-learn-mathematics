@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>גיאומטריה אנליטית בקלות – שאלון 372</title>
+<style>
+  :root {
+    --indigo: #4f46e5;
+    --sky: #0284c7;
+    --emerald: #059669;
+    --amber: #d97706;
+    --rose: #e11d48;
+    --purple: #7c3aed;
+    --bg: #f1f5f9;
+    --text: #0f172a;
+    --muted: #475569;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Rubik, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body { background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%); color: var(--text); line-height: 1.6; padding-bottom: 95px; min-height: 100vh; }
+
+  /* Interactive Hero Header */
+  header {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 52%, #db2777 100%);
+    color: white;
+    padding: 22px 16px 22px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+  }
+  .top-bar-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1080px;
+    margin: 0 auto 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .action-pill-btn {
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .action-pill-btn:hover, .action-pill-btn:active {
+    background: white;
+    color: var(--indigo);
+    transform: scale(1.03);
+  }
+  .action-pill-btn.nb-main-btn {
+    background: linear-gradient(135deg, #fde047, #f59e0b);
+    color: #78350f;
+    border-color: #fef08a;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+  }
+  header h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  header p { font-size: clamp(0.95rem, 3vw, 1.1rem); opacity: 0.95; max-width: 680px; margin: 0 auto 14px; }
+
+  /* Hero Quick Action Buttons */
+  .hero-quick-btns {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .hero-btn {
+    background: white;
+    color: #312e81;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s;
+    text-decoration: none;
+  }
+  .hero-btn:active, .hero-btn:hover { transform: translateY(-2px); }
+  .hero-btn.notebook-cta {
+    background: linear-gradient(135deg, #fde047, #f59e0b);
+    color: #78350f;
+  }
+
+  /* Desktop Sticky Tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 12px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 95;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .tab-btn {
+    border: 2px solid #e2e8f0;
+    background: white;
+    color: var(--text);
+    padding: 9px 15px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .tab-btn.t1.active { background: #4f46e5; color: white; border-color: #4f46e5; }
+  .tab-btn.t2.active { background: #e11d48; color: white; border-color: #e11d48; }
+  .tab-btn.t3.active { background: #059669; color: white; border-color: #059669; }
+  .tab-btn.t4.active { background: #d97706; color: white; border-color: #d97706; }
+  .tab-btn.t5.active { background: #7c3aed; color: white; border-color: #7c3aed; }
+
+  .container { max-width: 1100px; margin: 18px auto; padding: 0 14px; }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* TOP QUICK-JUMP BUTTONS PANEL */
+  .quick-nav-box {
+    background: white;
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(79,70,229,0.08);
+    border: 2px solid #e0e7ff;
+  }
+  .quick-nav-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--indigo);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topic-jump-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 8px;
+  }
+  .jump-btn {
+    border: none;
+    padding: 11px 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .jump-btn:hover, .jump-btn:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.16);
+  }
+  .jump-num {
+    background: rgba(255,255,255,0.28);
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  /* Golden Rules Interactive Buttons */
+  .golden-rules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .rule-pill {
+    width: 100%;
+    border: none;
+    text-align: right;
+    padding: 14px 16px;
+    border-radius: 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.15s;
+  }
+  .rule-pill:hover, .rule-pill:active { transform: scale(1.02); }
+  .rule-pill span { display: block; font-size: 0.82rem; opacity: 0.92; font-weight: 600; margin-bottom: 3px; }
+
+  /* Topic Cards Grid */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .topic-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border-top: 7px solid var(--indigo);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    scroll-margin-top: 80px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .topic-card.highlight-pulse {
+    box-shadow: 0 0 0 5px #f59e0b, 0 12px 30px rgba(245, 158, 11, 0.35);
+    transform: scale(1.02);
+  }
+  .topic-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 800;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+  .topic-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .topic-header-right { display: flex; align-items: center; gap: 10px; }
+  .topic-header h3 { font-size: 1.2rem; }
+  .speak-mini-btn {
+    background: #eef2ff;
+    color: var(--indigo);
+    border: 1px solid #c7d2fe;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .kid-box {
+    background: #fef3c7;
+    border-right: 4px solid #f59e0b;
+    color: #92400e;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.94rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .mini-svg {
+    width: 100%;
+    height: 110px;
+    background: #0f172a;
+    border-radius: 12px;
+    margin: 8px 0;
+    display: block;
+  }
+  .formula-box {
+    background: #eef2ff;
+    border: 2px dashed #6366f1;
+    color: #312e81;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border-radius: 12px;
+    font-weight: 800;
+    direction: ltr;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+  .example-box {
+    background: #ecfdf5;
+    border-right: 4px solid #10b981;
+    color: #065f46;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+  .card-footer-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .nb-card-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+  }
+  .vid-jump-btn {
+    background: #ffe4e6;
+    color: #be123c;
+    border: 1px solid #fda4af;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  /* NotebookLM Banner Card */
+  .notebooklm-banner {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4c1d95 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(49, 46, 129, 0.25);
+  }
+  .nb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .nb-lesson-link {
+    background: rgba(255,255,255,0.14);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: white;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s;
+  }
+  .nb-lesson-link:hover, .nb-lesson-link:active {
+    background: white;
+    color: #1e1b4b;
+  }
+
+  /* Interactive Video Studio */
+  .player-card {
+    background: white;
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    margin-bottom: 20px;
+  }
+  .lesson-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; margin-bottom: 16px; }
+  .lesson-btn {
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 0.92rem;
+    text-align: right;
+  }
+  .lesson-btn.active {
+    background: linear-gradient(135deg, #e11d48, #f43f5e);
+    color: white;
+    border-color: #e11d48;
+  }
+  .canvas-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0f172a;
+    border-radius: 18px;
+    padding: 14px;
+    color: white;
+  }
+  canvas { background: #1e293b; border-radius: 12px; width: 100%; max-width: 720px; height: auto; border: 2px solid #334155; }
+  .step-dots { display: flex; gap: 8px; margin-top: 10px; }
+  .step-dot { width: 28px; height: 8px; border-radius: 99px; background: #334155; transition: all 0.3s; }
+  .step-dot.active { background: #f59e0b; width: 44px; }
+  .subtitle-bar {
+    margin-top: 12px;
+    font-size: clamp(1rem, 3.2vw, 1.15rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, #1e293b, #334155);
+    border: 2px solid #38bdf8;
+    color: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-align: center;
+    width: 100%;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .player-controls { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; justify-content: center; width: 100%; }
+  .ctrl-btn {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #fff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 0.95rem;
+    min-height: 46px;
+  }
+  .ctrl-btn.secondary { background: #475569; }
+  .ctrl-btn.sound-on { background: #10b981; }
+
+  /* 2-COLUMN FLASHCARDS + KNOWLEDGE CHECK QUIZ */
+  .cards-and-quiz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .column-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .flashcard-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .flashcard { width: 100%; height: 270px; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+  .flashcard-front { background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%); border: 3.5px solid #4f46e5; }
+  .flashcard-back { background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%); border: 3.5px solid #059669; transform: rotateY(180deg); }
+  .card-tag { position: absolute; top: 12px; right: 14px; background: #4f46e5; color: white; padding: 4px 11px; border-radius: 99px; font-size: 0.8rem; font-weight: 800; }
+  .card-hint { position: absolute; bottom: 12px; font-size: 0.82rem; color: var(--muted); font-weight: 700; }
+
+  /* Quiz Column Styles */
+  .score-banner {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+  }
+  .quiz-progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .quiz-question-box {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e1b4b;
+  }
+  .quiz-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quiz-opt-btn {
+    width: 100%;
+    text-align: right;
+    padding: 13px 16px;
+    border-radius: 14px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quiz-opt-btn:hover { border-color: var(--indigo); background: #eef2ff; }
+  .quiz-opt-btn.correct {
+    background: #d1fae5;
+    border-color: #059669;
+    color: #065f46;
+  }
+  .quiz-opt-btn.wrong {
+    background: #ffe4e6;
+    border-color: #e11d48;
+    color: #9f1239;
+  }
+  .quiz-feedback-box {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: none;
+  }
+
+  /* Interactive Calculator Lab */
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .input-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; background: #f8fafc; padding: 10px 14px; border-radius: 12px; }
+  .input-row input {
+    width: 72px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #cbd5e1;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    direction: ltr;
+  }
+  .result-pill {
+    background: #f8fafc;
+    border-right: 5px solid var(--indigo);
+    padding: 11px 14px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .video-links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 14px; }
+  .video-link-card { background: #fff1f2; border-radius: 16px; padding: 16px; border: 2px solid #fecdd3; text-decoration: none; color: var(--text); display: block; }
+  .yt-badge { background: #e11d48; color: white; padding: 3px 9px; border-radius: 8px; font-size: 0.78rem; font-weight: 800; }
+
+  details.q-accordion { background: white; border-radius: 16px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 6px solid #7c3aed; overflow: hidden; }
+  details.q-accordion summary { padding: 16px 18px; font-weight: 800; font-size: 1.05rem; cursor: pointer; background: #faf5ff; color: #4c1d95; }
+  .q-body { padding: 14px 18px; border-top: 1px solid #e9d5ff; font-size: 0.95rem; }
+  .step-line { margin-bottom: 8px; padding-right: 10px; border-right: 3px solid #c084fc; }
+
+  /* Floating Back-To-Top Button */
+  .back-top-fab {
+    position: fixed;
+    bottom: 80px;
+    left: 16px;
+    background: var(--indigo);
+    color: white;
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(79,70,229,0.4);
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile Bottom Navigation Bar */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    z-index: 150;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+  }
+  .m-nav-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .m-nav-btn span.icon { font-size: 1.25rem; }
+  .m-nav-btn.active { color: var(--indigo); background: #eef2ff; }
+
+  @media (max-width: 820px) {
+    .cards-and-quiz-grid { grid-template-columns: 1fr; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .topic-jump-grid { grid-template-columns: repeat(2, 1fr); }
+    .tabs { display: none; }
+    .topic-card { scroll-margin-top: 20px; }
+    .ctrl-btn { flex: 1 1 42%; padding: 12px 10px; font-size: 0.9rem; }
+  }
+  @media (min-width: 821px) {
+    .mobile-bottom-nav { display: none; }
+    body { padding-bottom: 40px; }
+  }
+</style>
+</head>
+<body id="topPage">
+
+<header>
+  <div class="top-bar-actions">
+    <a class="action-pill-btn nb-main-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">
+      🎧 פתח את מחברת NotebookLM עם הסאונד
+    </a>
+    <button class="action-pill-btn" id="globalSoundBtn" onclick="toggleVoice()">🔊 קריינות בעברית: פועלת</button>
+  </div>
+
+  <h1>גיאומטריה אנליטית – הכי פשוט וצבעוני שיש!</h1>
+  <p>לחץ על כל כפתור למעלה כדי לקפוץ ישר לנושא, לסרטון בעברית או לבדיקת ידע בלי לגלול ולחפש:</p>
+
+  <!-- Interactive Top Buttons -->
+  <div class="hero-quick-btns">
+    <button class="hero-btn" onclick="switchTab('summary', 0)">🎨 9 הנושאים במילים פשוטות</button>
+    <button class="hero-btn" onclick="switchTab('videos', 1); playLesson();">🎬 סרטוני הסבר בעברית</button>
+    <a class="hero-btn notebook-cta" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎙️ כניסה ישירה למחברת NotebookLM</a>
+    <button class="hero-btn" onclick="switchTab('flashcards', 2)">🃏 כרטיסיות + בדיקת ידע</button>
+    <button class="hero-btn" onclick="switchTab('calculator', 3)">🧮 מחשבון מצייר</button>
+    <button class="hero-btn" onclick="switchTab('answers', 4)">🏆 פתרונות ל-10 השאלות</button>
+  </div>
+</header>
+
+<!-- Desktop Navigation Bar -->
+<div class="tabs">
+  <button class="tab-btn t1 active" onclick="switchTab('summary', 0)">🎨 1. סיכום מאויר וקפיצה מהירה</button>
+  <button class="tab-btn t2" onclick="switchTab('videos', 1)">🎬 2. סרטונים בעברית + NotebookLM</button>
+  <button class="tab-btn t3" onclick="switchTab('flashcards', 2)">🃏 3. כרטיסיות + בחן את עצמך</button>
+  <button class="tab-btn t4" onclick="switchTab('calculator', 3)">🧮 4. מחשבון מצייר</button>
+  <button class="tab-btn t5" onclick="switchTab('answers', 4)">🏆 5. פתרון 10 שאלות הבגרות</button>
+</div>
+
+<div class="container">
+
+  <!-- TAB 1: COLORFUL ILLUSTRATED SUMMARY WITH INSTANT JUMP BUTTONS -->
+  <div id="summary" class="section active">
+    
+    <!-- Instant Jump Buttons Box -->
+    <div class="quick-nav-box">
+      <div class="quick-nav-title">
+        <span>⚡ קפיצה מהירה לכל נושא (לחץ על כפתור במקום לגלול):</span>
+      </div>
+      <div class="topic-jump-grid">
+        <button class="jump-btn" style="background:#4f46e5;" onclick="jumpToCard('card-1')"><span class="jump-num">1</span> שיפוע (m)</button>
+        <button class="jump-btn" style="background:#0284c7;" onclick="jumpToCard('card-2')"><span class="jump-num">2</span> משוואת ישר</button>
+        <button class="jump-btn" style="background:#e11d48;" onclick="jumpToCard('card-3')"><span class="jump-num">3</span> מקבילים ומאונכים</button>
+        <button class="jump-btn" style="background:#d97706;" onclick="jumpToCard('card-4')"><span class="jump-num">4</span> חיתוך שני ישרים</button>
+        <button class="jump-btn" style="background:#059669;" onclick="jumpToCard('card-5')"><span class="jump-num">5</span> חיתוך עם הצירים</button>
+        <button class="jump-btn" style="background:#7c3aed;" onclick="jumpToCard('card-6')"><span class="jump-num">6</span> אמצע קטע</button>
+        <button class="jump-btn" style="background:#0d9488;" onclick="jumpToCard('card-7')"><span class="jump-num">7</span> אורך קטע (מרחק)</button>
+        <button class="jump-btn" style="background:#ea580c;" onclick="jumpToCard('card-8')"><span class="jump-num">8</span> שטח והיקף</button>
+        <button class="jump-btn" style="background:#db2777;" onclick="jumpToCard('card-9')"><span class="jump-num">9</span> הוכחות בבגרות</button>
+      </div>
+    </div>
+
+    <!-- 4 Golden Rules Interactive Buttons -->
+    <div class="golden-rules">
+      <button class="rule-pill" onclick="jumpToCard('card-5')" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
+        <span>👆 לחץ להסבר: נקודה על ציר x</span>
+        על הרצפה הגובה הוא אפס &larr; מציבים y = 0!
+      </button>
+      <button class="rule-pill" onclick="jumpToCard('card-5')" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">
+        <span>👆 לחץ להסבר: נקודה על ציר y</span>
+        על הקיר לא זזנו הצידה &larr; מציבים x = 0!
+      </button>
+      <button class="rule-pill" onclick="jumpToCard('card-3')" style="background: linear-gradient(135deg, #059669, #10b981);">
+        <span>👆 לחץ להסבר: ישרים מקבילים</span>
+        כמו פסי רכבת &larr; אותו שיפוע בדיוק!
+      </button>
+      <button class="rule-pill" onclick="jumpToCard('card-3')" style="background: linear-gradient(135deg, #e11d48, #f43f5e);">
+        <span>👆 לחץ להסבר: ישרים מאונכים (90°)</span>
+        שיפוע הפוך ונגדי &larr; מכפלת השיפועים היא מינוס 1!
+      </button>
+    </div>
+
+    <div class="topic-grid">
+
+      <!-- Topic 1 -->
+      <div class="topic-card" id="card-1" style="border-top-color: #4f46e5;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#4f46e5;">1</span>
+              <h3 style="color:#4f46e5;">שיפוע של ישר</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('שיפוע אומר כמה המגלשה תלולה. אם עולים משמאל לימין השיפוע חיובי, ואם יורדים השיפוע שלילי. מחסרים את הגבהים ומחלקים במרחק הצידה.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🛝 <strong>כמו לילד קטן:</strong> שיפוע אומר כמה המגלשה תלולה! אם עולים משמאל לימין השיפוע חיובי (+), ואם יורדים הוא שלילי (-).</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="20" y1="85" x2="240" y2="85" stroke="#475569" stroke-width="2"/>
+            <line x1="50" y1="80" x2="180" y2="80" stroke="#10b981" stroke-width="3" stroke-dasharray="4"/>
+            <line x1="180" y1="80" x2="180" y2="20" stroke="#f43f5e" stroke-width="3" stroke-dasharray="4"/>
+            <line x1="35" y1="87" x2="205" y2="9" stroke="#f59e0b" stroke-width="4"/>
+            <circle cx="50" cy="80" r="5" fill="#38bdf8"/>
+            <circle cx="180" cy="20" r="5" fill="#38bdf8"/>
+            <text x="115" y="96" fill="#34d399" font-size="11" font-weight="bold" text-anchor="middle">מרחק הצידה (4)</text>
+            <text x="218" y="55" fill="#fb7185" font-size="11" font-weight="bold" text-anchor="middle">עלייה בגובה (8)</text>
+          </svg>
+          <div class="formula-box">m = (y₂ - y₁) / (x₂ - x₁)</div>
+          <div class="example-box"><strong>דוגמה מהדף:</strong> דרך (2,3) ו-(6,11):<br>שיפוע = (11 פחות 3) חלקי (6 פחות 2) = 8 חלקי 4 = <strong>2</strong></div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(0)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 2 -->
+      <div class="topic-card" id="card-2" style="border-top-color: #0284c7;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#0284c7;">2</span>
+              <h3 style="color:#0284c7;">משוואת ישר</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('כדי למצוא משוואת ישר צריך רק שני דברים: נקודה אחת שעל הישר, ואת השיפוע שלו. מציבים בנוסחה ופותחים סוגריים.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🪪 <strong>כמו לילד קטן:</strong> לכל קו ישר יש "מתכון" שמספר מה השיפוע שלו ואיפה הוא פוגש את ציר ה-y. כדי למצוא משוואה צריך <strong>נקודה אחת ושיפוע</strong>!</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="70" y1="10" x2="70" y2="95" stroke="#64748b" stroke-width="2"/>
+            <line x1="20" y1="75" x2="240" y2="75" stroke="#64748b" stroke-width="2"/>
+            <line x1="30" y1="85" x2="220" y2="15" stroke="#38bdf8" stroke-width="4"/>
+            <circle cx="70" cy="70" r="5" fill="#fde047"/>
+            <text x="155" y="30" fill="#38bdf8" font-size="13" font-weight="bold">y = mx + b</text>
+            <text x="125" y="68" fill="#fde047" font-size="11" font-weight="bold">חיתוך ציר y</text>
+          </svg>
+          <div class="formula-box">y - y₁ = m(x - x₁)</div>
+          <div class="example-box"><strong>דוגמה מהדף:</strong> נקודה (2,3) ושיפוע 2:<br>y - 3 = 2(x - 2) &larr; <strong>y = 2x - 1</strong></div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(0)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 3 -->
+      <div class="topic-card" id="card-3" style="border-top-color: #e11d48;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#e11d48;">3</span>
+              <h3 style="color:#e11d48;">ישרים מקבילים ומאונכים</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('ישרים מקבילים הם כמו פסי רכבת ולכן יש להם אותו שיפוע בדיוק. בישרים מאונכים הופכים את השבר ומשנים את הסימן מפלוס למינוס או ממינוס לפלוס.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🛤️ <strong>כמו לילד קטן:</strong> <strong>מקבילים</strong> הם פסי רכבת (אותו שיפוע). <strong>מאונכים</strong> נפגשים בפינה ישרה של 90° – הופכים את השבר ומשנים סימן!</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="20" y1="75" x2="105" y2="25" stroke="#10b981" stroke-width="4"/>
+            <line x1="35" y1="90" x2="120" y2="40" stroke="#10b981" stroke-width="4"/>
+            <text x="65" y="18" fill="#34d399" font-size="11" font-weight="bold" text-anchor="middle">מקבילים: שיפוע זהה</text>
+            <line x1="150" y1="25" x2="235" y2="75" stroke="#38bdf8" stroke-width="4"/>
+            <line x1="170" y1="88" x2="215" y2="12" stroke="#f43f5e" stroke-width="4"/>
+            <circle cx="192" cy="50" r="4" fill="#fde047"/>
+            <text x="195" y="95" fill="#fb7185" font-size="11" font-weight="bold" text-anchor="middle">מאונכים: הפוך ונגדי</text>
+          </svg>
+          <div class="formula-box">מקבילים: m₁ = m₂ | מאונכים: m₁ · m₂ = -1</div>
+          <div class="example-box"><strong>דוגמה:</strong> אם השיפוע הוא מינוס חצי, אז ישר מקביל הוא <strong>מינוס חצי</strong>, וישר מאונך הוא <strong>פלוס 2</strong>.</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(1)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 4 -->
+      <div class="topic-card" id="card-4" style="border-top-color: #d97706;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#d97706;">4</span>
+              <h3 style="color:#d97706;">נקודת חיתוך של שני ישרים</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('כדי למצוא איפה שני ישרים נפגשים, משווים בין שתי המשוואות שלהם, מוצאים את איקס, ומציבים אותו כדי למצוא את וואי.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🤝 <strong>כמו לילד קטן:</strong> איפה שני כבישים נפגשים? בנקודה שבה הגובה שלהם שווה! משווים בין שתי המשוואות ופותרים.</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="30" y1="85" x2="220" y2="20" stroke="#f59e0b" stroke-width="4"/>
+            <line x1="30" y1="20" x2="220" y2="85" stroke="#a855f7" stroke-width="4"/>
+            <circle cx="125" cy="52" r="7" fill="#fde047" stroke="#fff" stroke-width="2"/>
+            <text x="125" y="34" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">נקודת מפגש (2,3)</text>
+          </svg>
+          <div class="formula-box">משווים: y₁ = y₂</div>
+          <div class="example-box"><strong>דוגמה מהדף:</strong> משווים 2x - 1 = -x + 5 &larr; מקבלים 3x = 6 כלומר <strong>x = 2</strong>, מציבים ומקבלים <strong>y = 3</strong>.</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(3)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 5 -->
+      <div class="topic-card" id="card-5" style="border-top-color: #059669;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#059669;">5</span>
+              <h3 style="color:#059669;">חיתוך עם הצירים</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('על ציר האיקס הגובה הוא תמיד אפס, לכן מציבים וואי שווה אפס. על ציר הוואי הרוחב הוא תמיד אפס, לכן מציבים איקס שווה אפס.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🧱 <strong>כמו לילד קטן:</strong> כל נקודה על ציר ה-x (הרצפה) היא בגובה 0 ולכן <strong>y=0</strong>. כל נקודה על ציר ה-y (הקיר) היא ברוחב 0 ולכן <strong>x=0</strong>!</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="20" y1="65" x2="240" y2="65" stroke="#94a3b8" stroke-width="2"/>
+            <line x1="90" y1="10" x2="90" y2="95" stroke="#94a3b8" stroke-width="2"/>
+            <line x1="50" y1="90" x2="210" y2="15" stroke="#10b981" stroke-width="4"/>
+            <circle cx="155" cy="65" r="6" fill="#38bdf8"/>
+            <circle cx="90" cy="48" r="6" fill="#f43f5e"/>
+            <text x="175" y="84" fill="#38bdf8" font-size="11" font-weight="bold">חיתוך ציר x</text>
+            <text x="45" y="45" fill="#fb7185" font-size="11" font-weight="bold">חיתוך ציר y</text>
+          </svg>
+          <div class="formula-box">חיתוך ציר x: y = 0 | חיתוך ציר y: x = 0</div>
+          <div class="example-box"><strong>דוגמה מהדף:</strong> הישר y = 2x - 6 חותך את ציר ה-x ב-<strong>(3,0)</strong> ואת ציר ה-y ב-<strong>(0,-6)</strong>.</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(3)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 6 -->
+      <div class="topic-card" id="card-6" style="border-top-color: #7c3aed;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#7c3aed;">6</span>
+              <h3 style="color:#7c3aed;">אמצע קטע (ומציאת קצה)</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('אמצע קטע הוא ממוצע פשוט: מחברים את שני האיקסים ומחלקים בשתיים, ומחברים את שני הוואיים ומחלקים בשתיים. אם מחפשים קצה חסר, מכפילים את האמצע בשתיים ומחסירים את הקצה הידוע.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">⚖️ <strong>כמו לילד קטן:</strong> האמצע הוא פשוט <strong>ממוצע של שתי הנקודות</strong>: מחברים את שני ה-x ומחלקים ב-2, ומחברים את שני ה-y ומחלקים ב-2!</div>
+          <svg class="mini-svg" viewBox="0 0 260 100">
+            <line x1="40" y1="75" x2="220" y2="25" stroke="#a855f7" stroke-width="4"/>
+            <circle cx="40" cy="75" r="6" fill="#38bdf8"/>
+            <circle cx="130" cy="50" r="7" fill="#fde047" stroke="#fff" stroke-width="2"/>
+            <circle cx="220" cy="25" r="6" fill="#38bdf8"/>
+            <text x="45" y="92" fill="#38bdf8" font-size="11" font-weight="bold">(-2,4)</text>
+            <text x="130" y="34" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">אמצע (2,2)</text>
+            <text x="210" y="45" fill="#38bdf8" font-size="11" font-weight="bold">(6,0)</text>
+          </svg>
+          <div class="formula-box">M = ( (x₁+x₂)/2 , (y₁+y₂)/2 )</div>
+          <div class="example-box"><strong>מציאת קצה חסר:</strong> מכפילים את האמצע ב-2 ומחסירים את הקצה הידוע: <strong>x_B = 2x_M - x_A</strong>.</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(2)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 7 -->
+      <div class="topic-card" id="card-7" style="border-top-color: #0d9488;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#0d9488;">7</span>
+              <h3 style="color:#0d9488;">אורך קטע (מרחק)</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('כדי למדוד מרחק בין שתי נקודות לוקחים את הפרש הרוחב בריבוע ועוד הפרש הגובה בריבוע, ומוציאים שורש.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">📏 <strong>כמו לילד קטן:</strong> סרגל אלכסוני שמודד מרחק בין שתי נקודות! לוקחים את הפרש ה-x בריבוע ועוד הפרש ה-y בריבוע, ומוציאים שורש.</div>
+          <div class="formula-box">d = √[ (x₂ - x₁)² + (y₂ - y₁)² ]</div>
+          <div class="example-box"><strong>דוגמה מהדף:</strong> בין (1,2) ל-(7,10):<br>מרחק = שורש של (6 בריבוע + 8 בריבוע) = שורש 100 = <strong>10</strong>.</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(2)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 8 -->
+      <div class="topic-card" id="card-8" style="border-top-color: #ea580c;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#ea580c;">8</span>
+              <h3 style="color:#ea580c;">שטח והיקף של משולש ומרובע</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('היקף זה לחבר את האורך של כל הצלעות מסביב. שטח משולש זה בסיס כפול גובה חלקי שתיים.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🏡 <strong>כמו לילד קטן:</strong> <strong>היקף</strong> זה אורך הגדר מסביב (מחברים את כל הצלעות). <strong>שטח</strong> זה הדשא שבפנים (בסיס כפול גובה חלקי 2).</div>
+          <div class="formula-box">S = (בסיס × גובה) / 2</div>
+          <div class="example-box"><strong>במשולש ישר זווית:</strong> השטח הוא פשוט (ניצב × ניצב) חלקי 2!</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(3)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+      <!-- Topic 9 -->
+      <div class="topic-card" id="card-9" style="border-top-color: #db2777;">
+        <div>
+          <div class="topic-header">
+            <div class="topic-header-right">
+              <span class="topic-num" style="background:#db2777;">9</span>
+              <h3 style="color:#db2777;">הוכחות ותכונות מצולעים</h3>
+            </div>
+            <button class="speak-mini-btn" onclick="speakText('במשולש שווה שוקיים שתי שוקיים שוות באורכן, והגובה לבסיס חוצה את הבסיס בדיוק באמצע. במקבילית לאלכסונים יש אותו אמצע.')">🔊 השמע בעברית</button>
+          </div>
+          <div class="kid-box">🕵️ <strong>כמו לילד קטן:</strong> איך מוכיחים במבחן? מראים בעזרת חישוב שהכלל מתקיים!</div>
+          <ul style="padding-right:18px; font-size:0.93rem; margin: 8px 0;">
+            <li><strong>משולש שווה שוקיים:</strong> שתי שוקיים שוות באורכן + הגובה לבסיס פוגע באמצע הבסיס!</li>
+            <li><strong>משולש ישר זווית:</strong> מכפלת שיפועי הניצבים היא <strong>1-</strong>.</li>
+            <li><strong>מקבילית:</strong> לאלכסונים יש בדיוק <strong>אותו אמצע</strong>.</li>
+          </ul>
+          <div class="example-box"><strong>טיפ למבחן:</strong> כשנתון גובה לבסיס במשולש שווה שוקיים, הוא גם מאונך לבסיס וגם תיכון!</div>
+        </div>
+        <div class="card-footer-btns">
+          <button class="vid-jump-btn" onclick="openVideoLesson(1)">🎬 סרטון בעברית</button>
+          <a class="nb-card-btn" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">🎧 פתח ב-NotebookLM</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: ANIMATED VIDEO EXPLAINERS WITH 100% HEBREW VOICE + NOTEBOOKLM LINKS -->
+  <div id="videos" class="section">
+    
+    <!-- NotebookLM Direct Video/Audio Buttons Card -->
+    <div class="notebooklm-banner">
+      <h2 style="font-size:1.35rem; margin-bottom:6px;">🎙️ מחברת הסרטונים וההסברים הקוליים ב-NotebookLM</h2>
+      <p style="font-size:0.95rem; opacity:0.92;">כל השיעורים מוכנים בעברית בתוך מחברת ה-NotebookLM הפתוחה שלך! לחץ כאן כדי להיכנס ישירות למחברת ב-NotebookLM:</p>
+      <div class="nb-grid">
+        <a class="nb-lesson-link" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">
+          <span>🎧 שיעור 1 ב-NotebookLM: שיפוע ומשוואת ישר</span>
+          <span>⬅</span>
+        </a>
+        <a class="nb-lesson-link" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">
+          <span>🎧 שיעור 2 ב-NotebookLM: מקבילים ומאונכים</span>
+          <span>⬅</span>
+        </a>
+        <a class="nb-lesson-link" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">
+          <span>🎧 שיעור 3 ב-NotebookLM: אמצע קטע ומרחק</span>
+          <span>⬅</span>
+        </a>
+        <a class="nb-lesson-link" href="https://notebooklm.google.com/notebook/3838a479-1e01-4f44-a5ee-f07112e226f0" target="_blank" rel="noopener">
+          <span>🎧 שיעור 4 ב-NotebookLM: שטחים ופתרון הבגרויות</span>
+          <span>⬅</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <h2 style="margin-bottom:6px; color:#e11d48;">🎬 נגן סרטוני הסבר מונפשים עם דיבוב מלא בעברית</h2>
+      <p style="color:var(--muted); margin-bottom:14px;">בחר סרטון ולחץ על <strong>"הפעל סרטון בדיבוב עברי"</strong> – כל ההסברים והנוסחאות מדובבים במילים בעברית:</p>
+      
+      <div class="lesson-selector">
+        <button class="lesson-btn active" id="lbtn-0" onclick="loadLesson(0, this)">סרטון 1: שיפוע ומשוואת ישר</button>
+        <button class="lesson-btn" id="lbtn-1" onclick="loadLesson(1, this)">סרטון 2: ישרים מקבילים ומאונכים</button>
+        <button class="lesson-btn" id="lbtn-2" onclick="loadLesson(2, this)">סרטון 3: אמצע קטע ומרחק</button>
+        <button class="lesson-btn" id="lbtn-3" onclick="loadLesson(3, this)">סרטון 4: חיתוך צירים ושטח משולש</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="animCanvas" width="720" height="360"></canvas>
+        <div class="step-dots" id="stepDots"></div>
+        <div id="subtitleBox" class="subtitle-bar">לחץ על "הפעל סרטון בדיבוב עברי" כדי להתחיל!</div>
+        <div class="player-controls">
+          <button class="ctrl-btn" onclick="playLesson()">▶ הפעל סרטון בדיבוב עברי</button>
+          <button class="ctrl-btn sound-on" onclick="speakCurrentStep()">🔊 השמע שלב זה שוב בעברית</button>
+          <button class="ctrl-btn secondary" onclick="prevStep()">⏮ הקודם</button>
+          <button class="ctrl-btn secondary" onclick="nextStep()">⏭ הבא</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <h3 style="color:#e11d48; margin-bottom:8px;">📺 סרטוני יוטיוב בעברית לשאלון 372</h3>
+      <div class="video-links-grid">
+        <a class="video-link-card" href="http://www.youtube.com/watch?v=U2jfKhWPti8" target="_blank" rel="noopener">
+          <span class="yt-badge">YouTube</span>
+          <h4 style="margin-top:8px;">גיאומטריה אנליטית קו ישר – שיעור יסודות מקיף</h4>
+          <p style="font-size:0.88rem; color:var(--muted); margin-top:4px;">אילון פרץ (Level Up) – הסבר מלא מאפס על שיפוע, משוואת ישר, מקבילים ומאונכים.</p>
+        </a>
+        <a class="video-link-card" href="http://www.youtube.com/watch?v=EmF-Th7R84A" target="_blank" rel="noopener">
+          <span class="yt-badge">YouTube</span>
+          <h4 style="margin-top:8px;">מציאת משוואת ישר לפי נקודה ושיפוע</h4>
+          <p style="font-size:0.88rem; color:var(--muted); margin-top:4px;">לומדים ברשת – סרטון קצר של 5 דקות שמדגים הצבה בנוסחה.</p>
+        </a>
+        <a class="video-link-card" href="http://www.youtube.com/watch?v=c6mKRcxU3B4" target="_blank" rel="noopener">
+          <span class="yt-badge">YouTube</span>
+          <h4 style="margin-top:8px;">פתרון בגרות 372 קיץ 2024 מועד א'</h4>
+          <p style="font-size:0.88rem; color:var(--muted); margin-top:4px;">כולל פתרון מצולם של שאלה 5 מדף החזרה שלך צעד אחר צעד!</p>
+        </a>
+        <a class="video-link-card" href="http://www.youtube.com/watch?v=lRJHX8Tq1uM" target="_blank" rel="noopener">
+          <span class="yt-badge">YouTube</span>
+          <h4 style="margin-top:8px;">שאלת מתכונת מלאה בגיאומטריה אנליטית 3 יח"ל</h4>
+          <p style="font-size:0.88rem; color:var(--muted); margin-top:4px;">עובד לב ארי – תרגול של אמצע קטע, מרחק ושטח משולש.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: 2-COLUMN FLASHCARDS + INTERACTIVE KNOWLEDGE CHECK QUIZ -->
+  <div id="flashcards" class="section">
+    <div class="cards-and-quiz-grid">
+      
+      <!-- COLUMN 1: FLIP FLASHCARDS -->
+      <div class="column-panel">
+        <div class="flashcard-container">
+          <div style="text-align:center;">
+            <h2 style="color:#4f46e5; font-size:1.35rem;">🃏 עמודה 1: כרטיסיות מתהפכות לשינון</h2>
+            <p style="color:var(--muted); font-size:0.92rem;">גע בכרטיסייה כדי להפוך אותה ולקרוא או לשמוע את הכלל</p>
+          </div>
+          
+          <div class="flashcard" id="cardElement" onclick="flipCard()">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="card-tag" id="cardCounter">כרטיסייה 1 מתוך 12</span>
+                <h2 id="cardQuestion" style="font-size:1.28rem; color:#1e1b4b; padding: 0 10px;"></h2>
+                <span class="card-hint">👆 גע בכרטיסייה כדי להפוך לתשובה</span>
+              </div>
+              <div class="flashcard-back">
+                <span class="card-tag" style="background:#059669;">התשובה הפשוטה ✅</span>
+                <p id="cardAnswer" style="font-size:1.15rem; font-weight:700; color:#064e3b; padding: 0 10px;"></p>
+                <span class="card-hint">👆 גע שוב כדי לחזור לשאלה</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; width:100%;">
+            <button class="ctrl-btn secondary" onclick="changeCard(-1)">➡ הקודמת</button>
+            <button class="ctrl-btn sound-on" onclick="speakFlashcard()">🔊 הקרא בעברית</button>
+            <button class="ctrl-btn" style="background:linear-gradient(135deg, #4f46e5, #6366f1);" onclick="changeCard(1)">הבאה ⬅</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 2: INTERACTIVE KNOWLEDGE CHECK QUIZ -->
+      <div class="column-panel" style="border-top: 6px solid #059669;">
+        <h2 style="color:#059669; font-size:1.35rem; margin-bottom:4px; text-align:center;">✅ עמודה 2: בדיקת ידע – האם אני יודע את החומר?</h2>
+        <p style="color:var(--muted); font-size:0.92rem; text-align:center; margin-bottom:12px;">לחץ על התשובה הנכונה ובדוק את רמת השליטה שלך:</p>
+
+        <div class="score-banner">
+          <span id="quizScoreText">הציון שלך: 0 מתוך 12</span>
+          <span id="quizMasteryText">שליטה בחומר: 0%</span>
+        </div>
+
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quizProgressFill"></div>
+        </div>
+
+        <div style="font-size:0.85rem; color:var(--muted); font-weight:800; margin-bottom:6px;" id="quizCounter">שאלת בדיקה 1 מתוך 12</div>
+        <div class="quiz-question-box" id="quizQuestionBox"></div>
+
+        <div class="quiz-options-list" id="quizOptionsList"></div>
+
+        <div class="quiz-feedback-box" id="quizFeedbackBox"></div>
+
+        <div style="display:flex; gap:10px; margin-top:16px; justify-content:space-between;">
+          <button class="ctrl-btn secondary" onclick="changeQuiz(-1)">➡ שאלה קודמת</button>
+          <button class="ctrl-btn" style="background:linear-gradient(135deg, #059669, #10b981);" onclick="changeQuiz(1)">לשאלה הבאה ⬅</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 4: INTERACTIVE VISUAL CALCULATOR -->
+  <div id="calculator" class="section">
+    <div class="player-card">
+      <h2 style="color:#d97706; margin-bottom:8px;">🧮 מעבדת חישוב וציור חיה – נסה בעצמך!</h2>
+      <p style="color:var(--muted); margin-bottom:16px;">הכנס שתי נקודות מתוך השאלות בדף, והמחשבון יצייר אותן ויחשב עבורך את כל הסעיפים אוטומטית:</p>
+      
+      <div class="calc-grid">
+        <div>
+          <div class="input-row">
+            <strong>נקודה A:</strong>
+            <label>x₁ = <input type="number" id="inX1" value="2" oninput="runCalc()"></label>
+            <label>y₁ = <input type="number" id="inY1" value="3" oninput="runCalc()"></label>
+          </div>
+          <div class="input-row">
+            <strong>נקודה B:</strong>
+            <label>x₂ = <input type="number" id="inX2" value="6" oninput="runCalc()"></label>
+            <label>y₂ = <input type="number" id="inY2" value="11" oninput="runCalc()"></label>
+          </div>
+
+          <div id="calcResults" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="canvas-wrap" style="padding:12px;">
+          <canvas id="calcCanvas" width="440" height="340"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: FULL STEP-BY-STEP SOLUTIONS TO ALL 10 QUESTIONS -->
+  <div id="answers" class="section">
+    <div class="player-card">
+      <h2 style="color:#7c3aed; margin-bottom:8px;">🏆 פתרון מודרך צעד-אחר-צעד ל-10 שאלות הבגרות בדף</h2>
+      <p style="color:var(--muted); margin-bottom:16px;">גע בכל שאלה כדי לפתוח את הפתרון המלא והפשוט שלה:</p>
+
+      <details class="q-accordion" open>
+        <summary>שאלה 1 – בגרות קיץ תשפ"ה, מועד ב'</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>א. מציאת קודקוד A:</strong> הקודקוד A על ציר ה-y ולכן מציבים x = 0 במשוואת AB: מקבלים y = 24 &larr; <strong>A(0, 24)</strong>.</div>
+          <div class="step-line"><strong>ב(1). משוואת הצלע BC:</strong> הצלע BC מאונכת ל-AB (ששיפועה 4/5-). הופכים ומשנים סימן: שיפוע BC הוא <strong>5/4</strong>. יחד עם C(0,-17) מקבלים: <strong>y = (5/4)x - 17</strong>.</div>
+          <div class="step-line"><strong>ב(2). שיעורי קודקוד B:</strong> משווים בין משוואת AB למשוואת BC: פותרים -(4/5)x + 24 = (5/4)x - 17 ומקבלים x = 20, מציבים ומקבלים y = 8 &larr; <strong>B(20, 8)</strong>.</div>
+          <div class="step-line"><strong>ג. אמצע E של AB:</strong> ממוצע בין A(0,24) ל-B(20,8): x = (0+20)/2 = 10, y = (24+8)/2 = 16 &larr; <strong>E(10, 16)</strong>.</div>
+          <div class="step-line"><strong>ד(1). נקודה K (חיתוך BC עם ציר x):</strong> מציבים y = 0 במשוואת BC: 0 = 1.25x - 17 &larr; <strong>K(13.6, 0)</strong>.</div>
+          <div class="step-line"><strong>ד(2). שטח משולש EBK:</strong> מחשבים את אורכי הניצבים EB ו-BK בנוסחת המרחק וכופלים חלקי 2 &larr; <strong>65.6 יח"ר</strong>.</div>
+        </div>
+      </details>
+
+      <details class="q-accordion">
+        <summary>שאלה 2 – בגרות קיץ תשפ"ה, מועד א'</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>א. קודקוד B לפי אמצע קטע:</strong> E(4,9) היא אמצע AB ונתון A(-2,0). מכפילים את E ב-2 ומחסירים את A: x_B = 2·4 - (-2) = 10, y_B = 2·9 - 0 = 18 &larr; <strong>B(10, 18)</strong>.</div>
+          <div class="step-line"><strong>ב(1). שיפוע AB:</strong> m = (18 - 0) / (10 - (-2)) = 18 / 12 = <strong>1.5 (או 3/2)</strong>.</div>
+          <div class="step-line"><strong>ב(2). משוואת AC:</strong> מאונכת ל-AB בנקודה A, לכן השיפוע הפוך ונגדי: <strong>m = -2/3</strong>. מציבים את A(-2,0) ומקבלים: <strong>y = -(2/3)x - 4/3</strong>.</div>
+          <div class="step-line"><strong>ג. קודקוד C:</strong> הישר BC מקביל לציר x, לכן ל-C יש אותו גובה y כמו ל-B, כלומר y = 18. מציבים y = 18 במשוואת AC ומקבלים <strong>C(-29, 18)</strong>.</div>
+          <div class="step-line"><strong>ד-ה. הוכחת שווה שוקיים והיקף:</strong> מחשבים בנוסחת המרחק AD = 13 וגם BD = 13 (שוות!). מחברים את כל הצלעות של ADBC ומקבלים היקף <strong>97.45</strong>.</div>
+        </div>
+      </details>
+
+      <details class="q-accordion">
+        <summary>שאלה 3 – בגרות חורף תשפ"ה</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>א. נקודות B ו-D:</strong> בישר y = -0.5x + 4: עבור B מציבים x=0 &larr; <strong>B(0,4)</strong>. עבור D מציבים y=0 &larr; <strong>D(8,0)</strong>.</div>
+          <div class="step-line"><strong>ב. קודקוד A:</strong> הנקודה D(8,0) היא אמצע AB: x_A = 2·8 - 0 = 16, y_A = 2·0 - 4 = -4 &larr; <strong>A(16, -4)</strong>.</div>
+          <div class="step-line"><strong>ג. משוואת AC וקודקוד C:</strong> שיפוע BC הוא 1/3, לכן שיפוע AC המאונך לו הוא <strong>3-</strong>. עם A(16,-4) המשוואה היא <strong>y = -3x + 44</strong>. משווים עם BC ומקבלים <strong>C(12, 8)</strong>.</div>
+          <div class="step-line"><strong>ד. שטחים:</strong> שטח משולש ABC ישר זווית = (BC × AC)/2 = <strong>80</strong>. שטח המרובע BCAK = <strong>256</strong>.</div>
+        </div>
+      </details>
+
+      <details class="q-accordion">
+        <summary>שאלה 4 – בגרות קיץ תשפ"ד, מועד ב'</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>א. קודקודים A ו-C:</strong> מציבים x=0 ו-y=0 במשוואה y = -0.5x + 15: מקבלים <strong>A(0, 15)</strong> ו-<strong>C(30, 0)</strong>.</div>
+          <div class="step-line"><strong>ב. משוואת אלכסון OB:</strong> מאונך ל-AC (ששיפועו 1/2-), לכן שיפוע OB הוא <strong>2</strong>, ועובר ב-(0,0) לכן: <strong>y = 2x</strong>.</div>
+          <div class="step-line"><strong>ג-ד. נקודות E ו-B:</strong> משווים 2x = -0.5x + 15 ומקבלים <strong>E(6, 12)</strong>. מאחר ש-E אמצע OB, מכפילים ב-2 ומקבלים <strong>B(12, 24)</strong>.</div>
+          <div class="step-line"><strong>ה. שווה שוקיים והיקף:</strong> OA = 15 וגם AB = √(12² + 9²) = 15. היקף המרובע = <strong>90</strong>.</div>
+        </div>
+      </details>
+
+      <details class="q-accordion">
+        <summary>שאלה 5 – בגרות קיץ תשפ"ד, מועד א'</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>א. שיפוע AE ומשוואת BC:</strong> שיפוע AE בין (4,14) ל-(0,2) הוא <strong>m = 3</strong>. הגובה מאונך לבסיס ולכן שיפוע BC הוא <strong>1/3-</strong>, ומשוואתו: <strong>y = -(1/3)x + 2</strong>.</div>
+          <div class="step-line"><strong>ב-ג. קודקודים C ו-B:</strong> מציבים y=0 ב-BC ומקבלים <strong>C(6,0)</strong>. במשולש שווה שוקיים הגובה לבסיס הוא גם תיכון, לכן E(0,2) היא אמצע BC! מכאן <strong>B(-6, 4)</strong>.</div>
+          <div class="step-line"><strong>ד-ה. משוואת BF והיקף:</strong> הישר BF מקביל ל-AE לכן שיפועו 3, ועובר ב-B(-6,4) &larr; <strong>y = 3x + 22</strong>. היקף משולש FBE הוא <strong>45.3</strong>.</div>
+        </div>
+      </details>
+
+      <details class="q-accordion">
+        <summary>שאלות 6, 7, 8, 9, 10 – פתרונות מהירים</summary>
+        <div class="q-body">
+          <div class="step-line"><strong>שאלה 6:</strong> א. A(2,0), D(0,4) | ב. y = 0.5x - 1 | ג. B(20,9) | ד(1). y = -(1/3)x + 9 | ד(2). F(12,5) | ה. שטח = 40.</div>
+          <div class="step-line"><strong>שאלה 7:</strong> א. C(8,0) | ב. y = -0.25x + 2 | ג. A(12,16) | ד. B(0,2), D(19,2) | ה. שטח BMD = 57.</div>
+          <div class="step-line"><strong>שאלה 8:</strong> א(1). A(-6,0) | א(2). x_B = 10 | ג(1). y = -0.5x + 7 | ג(2). E(4,5) | ד. שטח EBC = 30 | ה. שטח FEBC = 55.</div>
+          <div class="step-line"><strong>שאלה 9:</strong> א. A(-8,0), B(0,2) | ב. y = -4x + 2 | ג(1). y_D = 10 | ד. E(0, 10.5) | ה. שטח BME = 4.25.</div>
+          <div class="step-line"><strong>שאלה 10:</strong> א(1). שיפוע AB הוא 1/3 | א(2). משוואת BC היא y = -3x + 33 | ב. C(11,0) | ג. D(8,-1) | ד-ה. הוכחה בשיפועים ומרחק.</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Floating Back to Top Button -->
+<button class="back-top-fab" title="חזרה לכפתורים למעלה" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️</button>
+
+<!-- Mobile Sticky Bottom Bar (Without Share Button) -->
+<nav class="mobile-bottom-nav">
+  <button class="m-nav-btn active" onclick="switchTab('summary', 0)"><span class="icon">🎨</span><span>סיכום</span></button>
+  <button class="m-nav-btn" onclick="switchTab('videos', 1)"><span class="icon">🎬</span><span>סרטונים</span></button>
+  <button class="m-nav-btn" onclick="switchTab('flashcards', 2)"><span class="icon">🃏</span><span>כרטיסיות ומבחן</span></button>
+  <button class="m-nav-btn" onclick="switchTab('calculator', 3)"><span class="icon">🧮</span><span>מחשבון</span></button>
+  <button class="m-nav-btn" onclick="switchTab('answers', 4)"><span class="icon">🏆</span><span>פתרונות</span></button>
+</nav>
+
+<script>
+  let voiceEnabled = true;
+  let hebrewVoice = null;
+
+  function loadHebrewVoice() {
+    if (!('speechSynthesis' in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    hebrewVoice = voices.find(v => v.lang && (v.lang.toLowerCase().startsWith('he') || v.lang.toLowerCase().startsWith('iw'))) || null;
+  }
+  if ('speechSynthesis' in window) {
+    loadHebrewVoice();
+    window.speechSynthesis.onvoiceschanged = loadHebrewVoice;
+  }
+
+  function playChime(freq = 660) {
+    if (!voiceEnabled) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const actx = new AudioCtx();
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, actx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.25, actx.currentTime + 0.18);
+      gain.gain.setValueAtTime(0.12, actx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.35);
+      osc.connect(gain);
+      gain.connect(actx.destination);
+      osc.start();
+      osc.stop(actx.currentTime + 0.36);
+    } catch (e) {}
+  }
+
+  // 100% Pure Hebrew Speech Narration
+  function speakText(hebrewText) {
+    if (!voiceEnabled) return;
+    playChime(587);
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      loadHebrewVoice();
+      const u = new SpeechSynthesisUtterance(hebrewText);
+      u.lang = 'he-IL';
+      if (hebrewVoice) u.voice = hebrewVoice;
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+  function toggleVoice() {
+    voiceEnabled = !voiceEnabled;
+    const btn = document.getElementById('globalSoundBtn');
+    btn.innerText = voiceEnabled ? '🔊 קריינות בעברית: פועלת' : '🔇 קריינות: כבויה';
+    if (!voiceEnabled && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  }
+
+  function switchTab(id, idx) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.m-nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const dBtns = document.querySelectorAll('.tab-btn');
+    const mBtns = document.querySelectorAll('.m-nav-btn');
+    if (dBtns[idx]) dBtns[idx].classList.add('active');
+    if (mBtns[idx]) mBtns[idx].classList.add('active');
+    if (id === 'videos') drawFrame(false);
+    if (id === 'calculator') runCalc();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function jumpToCard(cardId) {
+    switchTab('summary', 0);
+    setTimeout(() => {
+      const el = document.getElementById(cardId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('highlight-pulse');
+        playChime(740);
+        setTimeout(() => el.classList.remove('highlight-pulse'), 2200);
+      }
+    }, 80);
+  }
+
+  function openVideoLesson(lessonIdx) {
+    switchTab('videos', 1);
+    const btn = document.getElementById('lbtn-' + lessonIdx);
+    loadLesson(lessonIdx, btn);
+    playLesson();
+  }
+
+  // Flashcards Data (12 cards with pure Hebrew speech strings)
+  const flashcards = [
+    { q: "איך מוצאים נקודת חיתוך עם ציר ה-x?", a: "מציבים y = 0 במשוואת הישר! (כי על הרצפה הגובה הוא תמיד 0).", speechQ: "איך מוצאים נקודת חיתוך עם ציר האיקס?", speechA: "מציבים וואי שווה אפס במשוואת הישר, כי על הרצפה הגובה הוא תמיד אפס." },
+    { q: "איך מוצאים נקודת חיתוך עם ציר ה-y?", a: "מציבים x = 0 במשוואת הישר! (זה פשוט המספר החופשי במשוואה).", speechQ: "איך מוצאים נקודת חיתוך עם ציר הוואי?", speechA: "מציבים איקס שווה אפס במשוואת הישר." },
+    { q: "ישר א' עם שיפוע 3. מה השיפוע של ישר שמקביל לו?", a: "גם 3! לישרים מקבילים (כמו פסי רכבת) יש תמיד אותו שיפוע בדיוק.", speechQ: "לישר ראשון יש שיפוע שלוש. מה השיפוע של ישר שמקביל לו?", speechA: "גם שלוש! לישרים מקבילים יש תמיד אותו שיפוע בדיוק." },
+    { q: "ישר א' עם שיפוע 2/3. מה השיפוע של ישר שמאונך לו (90°)?", a: "הפוך ונגדי: הופכים את השבר ל-3/2 ומשנים סימן למינוס: 3/2-.", speechQ: "לישר ראשון יש שיפוע שני שליש. מה השיפוע של ישר שמאונך לו בתשעים מעלות?", speechA: "הפוך ונגדי: הופכים את השבר לשלושה חצאים ומשנים סימן למינוס." },
+    { q: "איך מוצאים נקודת מפגש (חיתוך) של שני ישרים?", a: "משווים בין שתי המשוואות שלהם, מוצאים את x ואז מציבים כדי למצוא את y.", speechQ: "איך מוצאים נקודת מפגש של שני ישרים?", speechA: "משווים בין שתי המשוואות שלהם, מוצאים את איקס ואז מציבים כדי למצוא את וואי." },
+    { q: "איך מוצאים אמצע קטע בין שתי נקודות?", a: "עושים ממוצע פשוט! מחברים את שני ה-x ומחלקים ב-2, ומחברים את שני ה-y ומחלקים ב-2.", speechQ: "איך מוצאים אמצע קטע בין שתי נקודות?", speechA: "עושים ממוצע פשוט: מחברים את שני האיקסים ומחלקים בשתיים, ומחברים את שני הוואיים ומחלקים בשתיים." },
+    { q: "יודעים את נקודת האמצע M ואת קצה A. איך מוצאים את קצה B?", a: "מכפילים את האמצע ב-2 ומחסירים את הקצה הידוע!", speechQ: "אם יודעים את נקודת האמצע וקצה אחד, איך מוצאים את הקצה השני?", speechA: "מכפילים את שיעור האמצע בשתיים ומחסירים את הקצה הידוע." },
+    { q: "איך מוכיחים שמשולש הוא שווה שוקיים?", a: "מחשבים את אורך שתי השוקיים בעזרת נוסחת המרחק ומראים שהאורכים שווים!", speechQ: "איך מוכיחים שמשולש הוא שווה שוקיים?", speechA: "מחשבים את אורך שתי השוקיים בעזרת נוסחת המרחק ומראים שהאורכים שווים." },
+    { q: "איך מוכיחים שמשולש הוא ישר זווית?", a: "מחשבים את השיפועים של שתי הצלעות של הזווית הישרה, מכפילים אותם ומראים שיוצא 1-.", speechQ: "איך מוכיחים שמשולש הוא ישר זווית?", speechA: "מחשבים את השיפועים של שתי הצלעות, מכפילים אותם ומראים שהמכפלה שווה למינוס אחת." },
+    { q: "מה המשוואה של ישר שמקביל לציר ה-x ועובר בנקודה (4,7)?", a: "y = 7! כי בקו אופקי שטוח הגובה (y) נשאר תמיד 7.", speechQ: "מה המשוואה של ישר שמקביל לציר האיקס ועובר בנקודה ארבע פסיק שבע?", speechA: "וואי שווה שבע! כי בקו אופקי הגובה נשאר תמיד שבע." },
+    { q: "מה מיוחד בגובה לבסיס במשולש שווה שוקיים?", a: "שני דברים: הוא גם מאונך לבסיס (90°) וגם חוצה את הבסיס בדיוק באמצע!", speechQ: "מה מיוחד בגובה לבסיס במשולש שווה שוקיים?", speechA: "שני דברים: הוא גם מאונך לבסיס בתשעים מעלות וגם חוצה את הבסיס בדיוק באמצע." },
+    { q: "מה מיוחד באלכסונים של מקבילית?", a: "הם חוצים זה את זה – כלומר אמצע אלכסון אחד הוא בדיוק אותה נקודה כמו אמצע האלכסון השני!", speechQ: "מה מיוחד באלכסונים של מקבילית?", speechA: "הם חוצים זה את זה, כלומר לשני האלכסונים יש בדיוק אותה נקודת אמצע." }
+  ];
+  let currentCard = 0;
+
+  function renderCard() {
+    const cardEl = document.getElementById('cardElement');
+    cardEl.classList.remove('flipped');
+    setTimeout(() => {
+      document.getElementById('cardCounter').innerText = `כרטיסייה ${currentCard + 1} מתוך ${flashcards.length}`;
+      document.getElementById('cardQuestion').innerText = flashcards[currentCard].q;
+      document.getElementById('cardAnswer').innerText = flashcards[currentCard].a;
+    }, 150);
+  }
+  function flipCard() {
+    const cardEl = document.getElementById('cardElement');
+    cardEl.classList.toggle('flipped');
+    playChime(cardEl.classList.contains('flipped') ? 784 : 523);
+  }
+  function speakFlashcard() {
+    const isFlipped = document.getElementById('cardElement').classList.contains('flipped');
+    speakText(isFlipped ? flashcards[currentCard].speechA : flashcards[currentCard].speechQ);
+  }
+  function changeCard(dir) {
+    currentCard = (currentCard + dir + flashcards.length) % flashcards.length;
+    renderCard();
+  }
+  renderCard();
+
+  // Interactive Knowledge Check Quiz Data (12 questions)
+  const quizQuestions = [
+    {
+      q: "1. נתון ישר ששיפועו 4. מהו השיפוע של ישר המקביל לו?",
+      options: ["4 (אותו שיפוע בדיוק)", "-4 (נגדי)", "-1/4 (הפוך ונגדי)", "0"],
+      correct: 0,
+      explain: "מעולה! ישרים מקבילים הם כמו פסי רכבת – יש להם תמיד אותו שיפוע בדיוק."
+    },
+    {
+      q: "2. נתון ישר ששיפועו -1/3. מהו השיפוע של ישר המאונך לו (90°)?",
+      options: ["-1/3", "+3 (הפוך ונגדי)", "-3", "+1/3"],
+      correct: 1,
+      explain: "נכון מאוד! בישרים מאונכים הופכים את השבר 1/3 ל-3 ומשנים סימן ממינוס לפלוס: +3."
+    },
+    {
+      q: "3. איך מוצאים את נקודת החיתוך של ישר עם ציר ה-x?",
+      options: ["מציבים x = 0 במשוואה", "מציבים y = 0 במשוואה", "מחשבים אמצע קטע", "משווים את השיפוע ל-0"],
+      correct: 1,
+      explain: "אלוף! על ציר ה-x (הרצפה) הגובה הוא תמיד 0, ולכן מציבים y = 0."
+    },
+    {
+      q: "4. מהי נקודת החיתוך של הישר y = 3x - 12 עם ציר ה-y?",
+      options: ["(4, 0)", "(0, 3)", "(0, -12)", "(-12, 0)"],
+      correct: 2,
+      explain: "בדיוק! כשמציבים x = 0 מקבלים y = -12, ולכן הנקודה היא (0, -12)."
+    },
+    {
+      q: "5. מהי נקודת האמצע של הקטע שבין A(2, 4) לבין B(6, 10)?",
+      options: ["M(4, 7)", "M(8, 14)", "M(2, 3)", "M(4, 6)"],
+      correct: 0,
+      explain: "נכון! ממוצע ה-x הוא (2+6)/2 = 4, וממוצע ה-y הוא (4+10)/2 = 7."
+    },
+    {
+      q: "6. מהו השיפוע של ישר העובר דרך הנקודות (1, 2) ו-(4, 11)?",
+      options: ["m = 2", "m = 3", "m = 9", "m = 1/3"],
+      correct: 1,
+      explain: "מצוין! הפרש הגבהים הוא 11 פחות 2 = 9, חלקי הפרש המרחקים 4 פחות 1 = 3. 9 חלקי 3 שווה 3!"
+    },
+    {
+      q: "7. איך מוצאים את נקודת החיתוך בין שני ישרים נתונים?",
+      options: ["מכפילים את השיפועים שלהם", "מציבים x = 0", "משווים בין שתי משוואות הישרים (y₁ = y₂)", "עושים ממוצע בין השיפועים"],
+      correct: 2,
+      explain: "נכון מאוד! בנקודת המפגש שני הישרים נמצאים באותו גובה ולכן משווים בין המשוואות."
+    },
+    {
+      q: "8. מהי משוואת הישר המקביל לציר ה-x ועובר דרך הנקודה (5, 9)?",
+      options: ["x = 5", "y = 9", "y = 5x + 9", "y = 9x"],
+      correct: 1,
+      explain: "כל הכבוד! ישר שמקביל לציר ה-x שומר על גובה קבוע, ולכן משוואתו y = 9."
+    },
+    {
+      q: "9. איך מוכיחים במבחן שמשולש ABC הוא משולש שווה שוקיים?",
+      options: ["מראים שמכפלת השיפועים היא -1", "מחשבים בנוסחת המרחק ששתי צלעות שוות באורכן", "מציבים y = 0", "מוצאים חיתוך עם ציר y"],
+      correct: 1,
+      explain: "מדויק! משולש שווה שוקיים הוא משולש שבו שתי צלעות (שוקיים) שוות באורכן."
+    },
+    {
+      q: "10. מהו אורך הקטע שבין הנקודות (0, 0) ו-(3, 4) לפי נוסחת המרחק?",
+      options: ["7", "5", "25", "12"],
+      correct: 1,
+      explain: "מעולה! שורש של (3 בריבוע ועוד 4 בריבוע) = שורש של (9 + 16) = שורש 25 = 5."
+    },
+    {
+      q: "11. במשולש שווה שוקיים שרטטו גובה לבסיס. מה הגובה עושה לבסיס?",
+      options: ["רק מאונך לבסיס (90°) וגם חוצה אותו בדיוק באמצע", "מקביל לבסיס", "שווה באורכו לבסיס", "חותך את ציר ה-x"],
+      correct: 0,
+      explain: "נכון מאוד! במשולש שווה שוקיים הגובה לבסיס הוא גם תיכון לבסיס."
+    },
+    {
+      q: "12. בסיס משולש מונח על ציר ה-x מאורך 8, והגובה אליו הוא 5. מה שטח המשולש?",
+      options: ["40", "20", "13", "26"],
+      correct: 1,
+      explain: "אלוף! שטח משולש הוא (בסיס כפול גובה) חלקי 2: (8 כפול 5) חלקי 2 = 20."
+    }
+  ];
+
+  let currentQuiz = 0;
+  const answeredCorrectly = new Array(quizQuestions.length).fill(false);
+
+  function renderQuiz() {
+    const qObj = quizQuestions[currentQuiz];
+    document.getElementById('quizCounter').innerText = `שאלת בדיקה ${currentQuiz + 1} מתוך ${quizQuestions.length}`;
+    document.getElementById('quizQuestionBox').innerText = qObj.q;
+    const listEl = document.getElementById('quizOptionsList');
+    const fbEl = document.getElementById('quizFeedbackBox');
+    fbEl.style.display = 'none';
+
+    listEl.innerHTML = qObj.options.map((opt, idx) => `
+      <button class="quiz-opt-btn" id="qopt-${idx}" onclick="checkQuizAnswer(${idx})">${opt}</button>
+    `).join('');
+
+    if (answeredCorrectly[currentQuiz]) {
+      const btn = document.getElementById(`qopt-${qObj.correct}`);
+      if (btn) btn.classList.add('correct');
+      fbEl.style.display = 'block';
+      fbEl.style.background = '#d1fae5';
+      fbEl.style.color = '#065f46';
+      fbEl.innerText = '✅ כבר פתרת נכון שאלה זו! ' + qObj.explain;
+    }
+  }
+
+  function checkQuizAnswer(selectedIdx) {
+    const qObj = quizQuestions[currentQuiz];
+    const fbEl = document.getElementById('quizFeedbackBox');
+    fbEl.style.display = 'block';
+
+    if (selectedIdx === qObj.correct) {
+      document.getElementById(`qopt-${selectedIdx}`).classList.add('correct');
+      answeredCorrectly[currentQuiz] = true;
+      fbEl.style.background = '#d1fae5';
+      fbEl.style.color = '#065f46';
+      fbEl.innerText = '✅ ' + qObj.explain;
+      speakText(qObj.explain);
+      updateQuizScore();
+    } else {
+      document.getElementById(`qopt-${selectedIdx}`).classList.add('wrong');
+      fbEl.style.background = '#ffe4e6';
+      fbEl.style.color = '#9f1239';
+      fbEl.innerText = '❌ לא מדויק – נסה ללחוץ על תשובה אחרת!';
+      playChime(280);
+    }
+  }
+
+  function updateQuizScore() {
+    const score = answeredCorrectly.filter(Boolean).length;
+    const pct = Math.round((score / quizQuestions.length) * 100);
+    document.getElementById('quizScoreText').innerText = `הציון שלך: ${score} מתוך ${quizQuestions.length}`;
+    document.getElementById('quizMasteryText').innerText = `שליטה בחומר: ${pct}%`;
+    document.getElementById('quizProgressFill').style.width = `${pct}%`;
+  }
+
+  function changeQuiz(dir) {
+    currentQuiz = (currentQuiz + dir + quizQuestions.length) % quizQuestions.length;
+    renderQuiz();
+  }
+  renderQuiz();
+
+  // Animated Video Studio with 100% Pure Hebrew Speech
+  const canvas = document.getElementById('animCanvas');
+  const ctx = canvas.getContext('2d');
+  let currentLesson = 0;
+  let currentStep = 0;
+  let timer = null;
+
+  const lessons = [
+    {
+      steps: [
+        {
+          text: "שלב 1: נסמן שתי נקודות על הלוח: נקודה ראשונה ב-(2,3) ונקודה שנייה ב-(6,11).",
+          speech: "שלב ראשון: נסמן שתי נקודות על הלוח: נקודה ראשונה בשתיים פסיק שלוש, ונקודה שנייה בשש פסיק אחת עשרה.",
+          draw: (c) => { drawAxes(c); drawPoint(c, 240, 240, "נקודה א' (2,3)", "#38bdf8"); drawPoint(c, 440, 95, "נקודה ב' (6,11)", "#38bdf8"); }
+        },
+        {
+          text: "שלב 2: נמתח קו ישר כתום שעובר דרך שתי הנקודות שלנו.",
+          speech: "שלב שני: נמתח קו ישר כתום שעובר דרך שתי הנקודות שלנו.",
+          draw: (c) => { drawAxes(c); drawLine(c, 180, 283, 490, 58, "#f59e0b"); drawPoint(c, 240, 240, "נקודה א' (2,3)", "#38bdf8"); drawPoint(c, 440, 95, "נקודה ב' (6,11)", "#38bdf8"); }
+        },
+        {
+          text: "שלב 3: נחשב שיפוע: עלינו 8 למעלה והלכנו 4 ימינה. 8 חלקי 4 שווה שיפוע 2!",
+          speech: "שלב שלישי: נחשב את השיפוע. עלינו שמונה צעדים למעלה, והלכנו ארבעה צעדים ימינה. שמונה חלקי ארבע שווה שיפוע שתיים!",
+          draw: (c) => { drawAxes(c); drawLine(c, 180, 283, 490, 58, "#f59e0b"); drawLine(c, 240, 240, 440, 240, "#10b981", true); drawLine(c, 440, 240, 440, 95, "#ec4899", true); drawPoint(c, 240, 240, "נקודה א' (2,3)", "#38bdf8"); drawPoint(c, 440, 95, "נקודה ב' (6,11)", "#38bdf8"); drawLabel(c, 340, 266, "הלכנו 4 ימינה", "#10b981"); drawLabel(c, 535, 170, "עלינו 8 למעלה", "#ec4899"); }
+        },
+        {
+          text: "שלב 4: נציב בנוסחת הישר ונקבל את משוואת הישר: y = 2x - 1!",
+          speech: "שלב רביעי: נציב את הנקודה והשיפוע בנוסחת הישר, ונקבל את המשוואה: וואי שווה פעמיים איקס פחות אחת!",
+          draw: (c) => { drawAxes(c); drawLine(c, 180, 283, 490, 58, "#f59e0b"); drawPoint(c, 240, 240, "נקודה א' (2,3)", "#38bdf8"); drawPoint(c, 440, 95, "נקודה ב' (6,11)", "#38bdf8"); drawLabel(c, 360, 42, "משוואת הישר: y = 2x - 1 (שיפוע 2)", "#fde047"); }
+        }
+      ]
+    },
+    {
+      steps: [
+        {
+          text: "שלב 1: נתון ישר כחול שיורד למטה עם שיפוע מינוס חצי.",
+          speech: "שלב ראשון: נתון ישר כחול שיורד למטה עם שיפוע מינוס חצי.",
+          draw: (c) => { drawAxes(c); drawLine(c, 160, 95, 540, 270, "#38bdf8"); drawLabel(c, 360, 80, "ישר כחול: שיפוע מינוס חצי", "#38bdf8"); }
+        },
+        {
+          text: "שלב 2: ישר מקביל (ירוק) נראה כמו פסי רכבת – יש לו אותו שיפוע בדיוק: מינוס חצי!",
+          speech: "שלב שני: ישר מקביל בירוק נראה כמו פסי רכבת, ולכן יש לו בדיוק אותו שיפוע: מינוס חצי!",
+          draw: (c) => { drawAxes(c); drawLine(c, 160, 95, 540, 270, "#38bdf8"); drawLine(c, 160, 45, 540, 220, "#10b981"); drawLabel(c, 380, 45, "ישר מקביל: אותו שיפוע בדיוק (מינוס חצי)", "#34d399"); }
+        },
+        {
+          text: "שלב 3: ישר מאונך (ורוד) יוצר זווית ישרה של 90° – הופכים ומשנים סימן: שיפוע פלוס 2!",
+          speech: "שלב שלישי: ישר מאונך בורוד יוצר זווית ישרה של תשעים מעלות. הופכים את השבר חצי לשתיים ומשנים סימן לפלוס שתיים!",
+          draw: (c) => { drawAxes(c); drawLine(c, 160, 95, 540, 270, "#38bdf8"); drawLine(c, 260, 305, 425, 40, "#f43f5e"); drawPoint(c, 345, 180, "זווית 90°", "#fde047"); drawLabel(c, 360, 42, "בדיקת מאונכות: מינוס חצי כפול 2 שווה מינוס 1", "#fde047"); }
+        }
+      ]
+    },
+    {
+      steps: [
+        {
+          text: "שלב 1: נתון קטע סגול בין קצה א' (-2,4) לקצה ב' (6,0).",
+          speech: "שלב ראשון: נתון קטע סגול בין נקודה ראשונה במינוס שתיים פסיק ארבע, לנקודה שנייה בשש פסיק אפס.",
+          draw: (c) => { drawAxes(c); drawLine(c, 150, 120, 460, 265, "#a855f7"); drawPoint(c, 150, 120, "קצה א' (-2,4)", "#38bdf8"); drawPoint(c, 460, 265, "קצה ב' (6,0)", "#38bdf8"); }
+        },
+        {
+          text: "שלב 2: מוצאים את נקודת האמצע על ידי ממוצע: מחברים את הקצוות ומחלקים ב-2!",
+          speech: "שלב שני: מוצאים את נקודת האמצע על ידי ממוצע פשוט: מחברים את הקצוות ומחלקים בשתיים!",
+          draw: (c) => { drawAxes(c); drawLine(c, 150, 120, 460, 265, "#a855f7"); drawPoint(c, 150, 120, "קצה א' (-2,4)", "#38bdf8"); drawPoint(c, 460, 265, "קצה ב' (6,0)", "#38bdf8"); drawPoint(c, 305, 192, "נקודת האמצע (2,2)", "#fde047"); }
+        },
+        {
+          text: "שלב 3: (-2 ועוד 6) חלקי 2 שווה 2, ו-(4 ועוד 0) חלקי 2 שווה 2. האמצע הוא (2,2)!",
+          speech: "שלב שלישי: מינוס שתיים ועוד שש חלקי שתיים שווה שתיים, וארבע ועוד אפס חלקי שתיים שווה שתיים. לכן נקודת האמצע היא שתיים פסיק שתיים!",
+          draw: (c) => { drawAxes(c); drawLine(c, 150, 120, 460, 265, "#a855f7"); drawPoint(c, 150, 120, "קצה א' (-2,4)", "#38bdf8"); drawPoint(c, 460, 265, "קצה ב' (6,0)", "#38bdf8"); drawPoint(c, 305, 192, "נקודת האמצע (2,2)", "#fde047"); drawLabel(c, 360, 48, "ממוצע פשוט: מחברים ומחלקים ב-2!", "#34d399"); }
+        }
+      ]
+    },
+    {
+      steps: [
+        {
+          text: "שלב 1: בסיס המשולש מונח על ציר ה-x בין (1,0) ל-(7,0). אורכו 7 פחות 1 = 6!",
+          speech: "שלב ראשון: בסיס המשולש מונח על ציר האיקס בין אחת לשבע. האורך שלו הוא שבע פחות אחת שווה שש!",
+          draw: (c) => { drawAxes(c); drawLine(c, 250, 265, 510, 265, "#10b981"); drawPoint(c, 250, 265, "קודקוד (1,0)", "#38bdf8"); drawPoint(c, 510, 265, "קודקוד (7,0)", "#38bdf8"); drawLabel(c, 380, 300, "אורך הבסיס = 6", "#34d399"); }
+        },
+        {
+          text: "שלב 2: הקודקוד העליון הוא (3,5). הגובה לציר x הוא פשוט ה-y שלו, כלומר 5!",
+          speech: "שלב שני: הקודקוד העליון נמצא בשלוש פסיק חמש. הגובה לציר האיקס הוא פשוט שיעור הוואי שלו, כלומר חמש!",
+          draw: (c) => { drawAxes(c); drawLine(c, 250, 265, 510, 265, "#10b981"); drawLine(c, 250, 265, 330, 95, "#f59e0b"); drawLine(c, 510, 265, 330, 95, "#f59e0b"); drawLine(c, 330, 95, 330, 265, "#f43f5e", true); drawPoint(c, 250, 265, "קודקוד (1,0)", "#38bdf8"); drawPoint(c, 510, 265, "קודקוד (7,0)", "#38bdf8"); drawPoint(c, 330, 95, "קודקוד (3,5)", "#fde047"); drawLabel(c, 385, 185, "גובה = 5", "#fb7185"); }
+        },
+        {
+          text: "שלב 3: שטח המשולש = (בסיס 6 כפול גובה 5) חלקי 2 = 15 יחידות שטח!",
+          speech: "שלב שלישי: שטח המשולש שווה לבסיס שש כפול גובה חמש חלקי שתיים, שזה חמש עשרה יחידות שטח!",
+          draw: (c) => { drawAxes(c); drawLine(c, 250, 265, 510, 265, "#10b981"); drawLine(c, 250, 265, 330, 95, "#f59e0b"); drawLine(c, 510, 265, 330, 95, "#f59e0b"); drawLine(c, 330, 95, 330, 265, "#f43f5e", true); drawPoint(c, 250, 265, "קודקוד (1,0)", "#38bdf8"); drawPoint(c, 510, 265, "קודקוד (7,0)", "#38bdf8"); drawPoint(c, 330, 95, "קודקוד (3,5)", "#fde047"); drawLabel(c, 370, 42, "שטח המשולש = (6 כפול 5) חלקי 2 = 15", "#fde047"); }
+        }
+      ]
+    }
+  ];
+
+  function drawAxes(c) {
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    c.strokeStyle = "#334155";
+    c.lineWidth = 1;
+    for (let x = 40; x < 680; x += 32) { c.beginPath(); c.moveTo(x, 20); c.lineTo(x, 340); c.stroke(); }
+    for (let y = 20; y < 340; y += 32) { c.beginPath(); c.moveTo(40, y); c.lineTo(680, y); c.stroke(); }
+    c.strokeStyle = "#94a3b8";
+    c.lineWidth = 2.5;
+    c.beginPath(); c.moveTo(40, 265); c.lineTo(680, 265); c.stroke();
+    c.beginPath(); c.moveTo(200, 20); c.lineTo(200, 340); c.stroke();
+    c.fillStyle = "#94a3b8";
+    c.font = "bold 14px sans-serif";
+    c.fillText("ציר x (רצפה)", 590, 252);
+    c.fillText("ציר y (קיר)", 210, 36);
+  }
+
+  function drawPoint(c, x, y, label, color) {
+    c.fillStyle = color;
+    c.beginPath(); c.arc(x, y, 8, 0, Math.PI * 2); c.fill();
+    c.strokeStyle = "#fff"; c.lineWidth = 2; c.stroke();
+    c.fillStyle = "#ffffff";
+    c.font = "bold 15px sans-serif";
+    c.fillText(label, x + 12, y - 10);
+  }
+
+  function drawLine(c, x1, y1, x2, y2, color, dashed = false) {
+    c.strokeStyle = color;
+    c.lineWidth = 4.5;
+    c.setLineDash(dashed ? [7, 7] : []);
+    c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke();
+    c.setLineDash([]);
+  }
+
+  function drawLabel(c, x, y, text, color) {
+    c.fillStyle = color;
+    c.font = "bold 16px sans-serif";
+    c.textAlign = "center";
+    c.fillText(text, x, y);
+    c.textAlign = "start";
+  }
+
+  function renderDots() {
+    const steps = lessons[currentLesson].steps;
+    const wrap = document.getElementById('stepDots');
+    wrap.innerHTML = steps.map((_, i) => `<div class="step-dot ${i === currentStep ? 'active' : ''}"></div>`).join('');
+  }
+
+  function drawFrame(speakNow = false) {
+    const stepObj = lessons[currentLesson].steps[currentStep];
+    stepObj.draw(ctx);
+    document.getElementById('subtitleBox').innerText = stepObj.text;
+    renderDots();
+    if (speakNow) speakText(stepObj.speech);
+  }
+
+  function speakCurrentStep() {
+    speakText(lessons[currentLesson].steps[currentStep].speech);
+  }
+
+  function loadLesson(idx, btn) {
+    if (timer) clearInterval(timer);
+    currentLesson = idx;
+    currentStep = 0;
+    document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    drawFrame(true);
+  }
+
+  function nextStep() {
+    if (timer) clearInterval(timer);
+    const steps = lessons[currentLesson].steps;
+    currentStep = (currentStep + 1) % steps.length;
+    drawFrame(true);
+  }
+
+  function prevStep() {
+    if (timer) clearInterval(timer);
+    const steps = lessons[currentLesson].steps;
+    currentStep = (currentStep - 1 + steps.length) % steps.length;
+    drawFrame(true);
+  }
+
+  function playLesson() {
+    if (timer) clearInterval(timer);
+    currentStep = 0;
+    drawFrame(true);
+    timer = setInterval(() => {
+      const steps = lessons[currentLesson].steps;
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        drawFrame(true);
+      } else {
+        clearInterval(timer);
+      }
+    }, 5600);
+  }
+
+  // Interactive Calculator Lab
+  function runCalc() {
+    const x1 = parseFloat(document.getElementById('inX1').value) || 0;
+    const y1 = parseFloat(document.getElementById('inY1').value) || 0;
+    const x2 = parseFloat(document.getElementById('inX2').value) || 0;
+    const y2 = parseFloat(document.getElementById('inY2').value) || 0;
+
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const xm = (x1 + x2) / 2;
+    const ym = (y1 + y2) / 2;
+    const dist = Math.sqrt(dx * dx + dy * dy).toFixed(2);
+
+    let slopeHtml = "";
+    let eqHtml = "";
+    let perpHtml = "";
+    if (dx === 0) {
+      slopeHtml = "אין שיפוע (ישר אנכי המקביל לציר y)";
+      eqHtml = `x = ${x1}`;
+      perpHtml = "שיפוע 0 (ישר אופקי)";
+    } else {
+      const m = dy / dx;
+      const mStr = Number.isInteger(m) ? m : m.toFixed(2);
+      const b = y1 - m * x1;
+      const bStr = b >= 0 ? `+ ${Number.isInteger(b) ? b : b.toFixed(2)}` : `- ${Number.isInteger(Math.abs(b)) ? Math.abs(b) : Math.abs(b).toFixed(2)}`;
+      slopeHtml = `<span dir="ltr">m = (${y2} - ${y1}) / (${x2} - ${x1}) = <strong>${mStr}</strong></span>`;
+      eqHtml = `<span dir="ltr"><strong>y = ${mStr}x ${bStr}</strong></span>`;
+      perpHtml = m === 0 ? "ישר אנכי" : `<span dir="ltr"><strong>${(-1/m).toFixed(2)}</strong> (הפוך ונגדי)</span>`;
+    }
+
+    document.getElementById('calcResults').innerHTML = `
+      <div class="result-pill" style="border-right-color:#4f46e5;"><strong>1. שיפוע הישר (m):</strong> ${slopeHtml}</div>
+      <div class="result-pill" style="border-right-color:#0284c7;"><strong>2. משוואת הישר:</strong> ${eqHtml}</div>
+      <div class="result-pill" style="border-right-color:#e11d48;"><strong>3. שיפוע מאונך (90°):</strong> ${perpHtml}</div>
+      <div class="result-pill" style="border-right-color:#7c3aed;"><strong>4. אמצע הקטע (M):</strong> <span dir="ltr"><strong>M(${xm}, ${ym})</strong></span></div>
+      <div class="result-pill" style="border-right-color:#059669;"><strong>5. אורך הקטע (מרחק d):</strong> <span dir="ltr">√(${dx}² + ${dy}²) = <strong>${dist}</strong></span></div>
+    `;
+
+    const cc = document.getElementById('calcCanvas');
+    const g = cc.getContext('2d');
+    g.clearRect(0, 0, cc.width, cc.height);
+    const ox = cc.width / 2;
+    const oy = cc.height / 2 + 20;
+    const maxCoord = Math.max(Math.abs(x1), Math.abs(y1), Math.abs(x2), Math.abs(y2), 5);
+    const sc = Math.min(130 / maxCoord, 22);
+
+    g.strokeStyle = "#334155"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(0, oy); g.lineTo(cc.width, oy); g.stroke();
+    g.beginPath(); g.moveTo(ox, 0); g.lineTo(ox, cc.height); g.stroke();
+
+    const px1 = ox + x1 * sc, py1 = oy - y1 * sc;
+    const px2 = ox + x2 * sc, py2 = oy - y2 * sc;
+    const pxm = ox + xm * sc, pym = oy - ym * sc;
+
+    g.strokeStyle = "#f59e0b"; g.lineWidth = 4;
+    g.beginPath(); g.moveTo(px1, py1); g.lineTo(px2, py2); g.stroke();
+
+    [[px1, py1, `A(${x1},${y1})`, "#38bdf8"], [px2, py2, `B(${x2},${y2})`, "#38bdf8"], [pxm, pym, `M(${xm},${ym})`, "#fde047"]].forEach(([x, y, lbl, col]) => {
+      g.fillStyle = col; g.beginPath(); g.arc(x, y, 6, 0, Math.PI * 2); g.fill();
+      g.fillStyle = "#fff"; g.font = "bold 13px sans-serif"; g.fillText(lbl, x + 8, y - 8);
+    });
+  }
+
+  drawFrame(false);
+  runCalc();
+</script>
+
+</body>
+</html>
